@@ -3,7 +3,7 @@ _Luis Martinez Neira_<br>
 _2023427985_
 
 # Sobre el entregable
-Esta tarea escrita en python implementa 5 algoritmos de busqueda, divido en 3 categorias: búsqueda no informada (BFS, DFS), búsqueda informada (Voraz y A*) y algoritmo genético
+Esta tarea escrita en python implementa 5 algoritmos de busqueda, dividido en 3 categorias: búsqueda no informada (BFS, DFS), búsqueda informada (Voraz y A*) y algoritmo genético
 
 ## Declaración de Autoría y Uso de IA
 - **Algoritmos y Simulación:** Implementación propia de los algoritmos de búsqueda no informada, informada y genético, asi como de simulacion.py y benchmarking.py.
