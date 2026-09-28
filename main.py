@@ -115,7 +115,7 @@ def generar_posiciones(mapa_grid, cantidad):
 # Configuración predeterminada de parámetros por escenario:
 # (Matriz del Mapa, Posiciones iniciales de agentes, Frecuencia propagación k_fuego)
 MAPAS_DISPONIBLES = {
-    "Mapa 1: Cuello de botella (10 agentes)": (MAPA_1, generar_posiciones(MAPA_1, 80), 3),
+    "Mapa 1: Cuello de botella (80 agentes)": (MAPA_1, generar_posiciones(MAPA_1, 80), 3),
     "Mapa 2: Laberinto corporativo (80 agentes)": (MAPA_2, generar_posiciones(MAPA_2, 80), 3),
     "Mapa 3: Dispersión abierta (200 agentes)": (MAPA_3, generar_posiciones(MAPA_3, 200), 2)
 }
@@ -146,7 +146,7 @@ class InterfazEscapeTorre:
         # Variables de estado y configuración
         self.simulacion = None
         self.algoritmo_seleccionado = tk.StringVar(value="BFS")
-        self.mapa_seleccionado = tk.StringVar(value="Mapa 1: Cuello de botella (10 agentes)")
+        self.mapa_seleccionado = tk.StringVar(value="Mapa 1: Cuello de botella (80 agentes)")
         self.auto_ejecucion = False
         self.tam_celda = 35
 
