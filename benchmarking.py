@@ -83,7 +83,9 @@ CONFIGURACIONES_MAPAS = {
     "Mapa 2": (MAPA_2, 80, 3),
     "Mapa 3": (MAPA_3, 200, 3)
 }
+
 def ejecutar_benchmark():
+    """Ejecuta las pruebas de rendimiento comparando los algoritmos en cada mapa."""
     print(f"=== INICIANDO BENCHMARK ({ITERACIONES} iteraciones por prueba) ===\n")
     
     for nombre_mapa, (mapa, cantidad_agentes, k_fuego) in CONFIGURACIONES_MAPAS.items():
@@ -93,6 +95,7 @@ def ejecutar_benchmark():
             tiempos_turnos = []
             tasas_supervivencia = []
 
+            # Ejecutar las iteraciones configuradas para el algoritmo actual
             for i in range(ITERACIONES):
                 posiciones = generar_posiciones(mapa, cantidad_agentes)
                 sim = SimulacionEscape(mapa, k_fuego, posiciones)
@@ -101,6 +104,7 @@ def ejecutar_benchmark():
                 while not sim.terminar():
                     sim.turno(algoritmo)
 
+                # Contar agentes que lograron evacuar en la simulación
                 for agente in sim.agentes:
                     if agente.evacuado:
                         salvados +=1
@@ -108,6 +112,7 @@ def ejecutar_benchmark():
                 tasas_supervivencia.append(supervivencia)
                 tiempos_turnos.append(sim.turno_actual)
 
+            # Cálculo de estadísticas descriptivas de supervivencia y turnos
             promedio_supervivencia = statistics.mean(tasas_supervivencia)
             media_turnos = statistics.mean(tiempos_turnos)
             std_turnos = statistics.stdev(tiempos_turnos) if ITERACIONES > 1 else 0
@@ -118,8 +123,6 @@ def ejecutar_benchmark():
                     f"Turnos -> Media: {media_turnos:5.1f} | DesvEst: {std_turnos:5.1f} | "
                     f"Min: {min_turnos} | Max: {max_turnos}")
         print("")
-            
-
 if __name__ == "__main__":
     tiempo_inicio = time.time()
     ejecutar_benchmark()

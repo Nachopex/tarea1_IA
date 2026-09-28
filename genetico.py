@@ -38,19 +38,20 @@ def evaluar_individuo(individuo, simulacion, inicio):
     return fitness, camino
 
 def algoritmo_genetico(simulacion, inicio, tam_poblacion=30, prob_mutacion=0.1):
+    """Encuentra una ruta hacia la salida evolucionando una poblacion de caminos."""
     movimientos = [(0, -1), (0, 1), (-1, 0), (1, 0)]
     generaciones = 30
     individuos = []
     actual_generacion = []
     largo = 30
 
-    
+    # Crear y evaluar la poblacion inicial
     for i in range(tam_poblacion):
         ind = generar_individuo(largo)
         fitness, camino = evaluar_individuo(ind,simulacion,inicio)
         individuos.append([fitness, ind])
 
-
+    # Ciclo de evolucion a traves de las generaciones
     for i in range(generaciones):
 
         if actual_generacion:
@@ -59,13 +60,13 @@ def algoritmo_genetico(simulacion, inicio, tam_poblacion=30, prob_mutacion=0.1):
                 fitness, camino = evaluar_individuo(ind,simulacion,inicio)
                 individuos.append([fitness, ind])
 
-        #Seleccion
+        #Seleccion: nos quedamos con el mejor 50% de la poblacion
         individuos.sort(reverse=True)
         mitad = tam_poblacion//2
         individuos = individuos[:mitad]
 
         corte = largo //2
-        #Cruce
+        #Cruce: combinar dos padres cortando su camino a la mitad
         actual_generacion = []
         for i in range(tam_poblacion):
 
@@ -73,13 +74,13 @@ def algoritmo_genetico(simulacion, inicio, tam_poblacion=30, prob_mutacion=0.1):
             padre2 = random.choice(individuos)
             hijo = padre1[1][:corte] + padre2[1][corte:]
             
-
-            #Mutacion
+            #Mutacion: cambiar un movimiento al azar segun la probabilidad
             if(random.random() < prob_mutacion):
                     hijo[random.randint(0,largo-1)] = random.choice(movimientos)
 
             actual_generacion.append(hijo)
 
+    # Evaluar la ultima generacion para obtener el mejor camino final
     individuos = []
     for ind in actual_generacion:
         fitness, camino = evaluar_individuo(ind,simulacion,inicio)
@@ -87,4 +88,5 @@ def algoritmo_genetico(simulacion, inicio, tam_poblacion=30, prob_mutacion=0.1):
 
     individuos.sort(reverse=True)
 
+    # Retorna la ruta del individuo con mejor fitness
     return individuos[0][1]
